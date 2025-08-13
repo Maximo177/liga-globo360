@@ -1,33 +1,76 @@
 {
   "Enero": [
+    ... // Mantén aquí los datos de Enero si existen
+  ],
+  "Febrero": [
+    ... // Mantén aquí los datos de Febrero si existen
+  ],
+  "Julio": [
+    // Aquí puedes tener otros resultados de Julio
     {
-      "fecha": "Fecha 1",
+      "fecha": "Fecha 9",
       "partidos": [
         {
-          "equipoA": ["Jugador 1", "Jugador 2"],
+          "equipoA": ["ivan", "cehjo"],
           "puntuacionA": 6,
-          "equipoB": ["Jugador 3", "Jugador 4"],
+          "equipoB": ["maxi", "elio"],
           "puntuacionB": 4
         },
         {
-          "equipoA": ["Jugador 5", "Jugador 6"],
-          "puntuacionA": 2,
-          "equipoB": ["Jugador 7", "Jugador 8"],
-          "puntuacionB": 6
-        }
-      ]
-    },
-    {
-      "fecha": "Fecha 2",
-      "partidos": [
+          "equipoA": ["santi", "pumpa"],
+          "puntuacionA": 6,
+          "equipoB": ["pico", "mister"],
+          "puntuacionB": 3
+        },
         {
-          "equipoA": ["Jugador 1", "Jugador 3"],
+          "equipoA": ["gonzalo", "maciel"],
+          "puntuacionA": 6,
+          "equipoB": ["maxi", "elio"],
+          "puntuacionB": 2
+        },
+        {
+          "equipoA": ["ivan", "cehjo"],
+          "puntuacionA": 6,
+          "equipoB": ["santi", "pumpa"],
+          "puntuacionB": 4
+        },
+        {
+          "equipoA": ["pico", "mister"],
+          "puntuacionA": 1,
+          "equipoB": ["gonzalo", "maciel"],
+          "puntuacionB": 6
+        },
+        {
+          "equipoA": ["maxi", "elio"],
           "puntuacionA": 5,
-          "equipoB": ["Jugador 2", "Jugador 4"],
+          "equipoB": ["santi", "pumpa"],
           "puntuacionB": 7
+        },
+        {
+          "equipoA": ["ivan", "chejo"],
+          "puntuacionA": 4,
+          "equipoB": ["gonza", "maciel"],
+          "puntuacionB": 6
+        },
+        {
+          "equipoA": ["santi", "pumpa"],
+          "puntuacionA": 4,
+          "equipoB": ["gonza", "maciel"],
+          "puntuacionB": 6
+        },
+        {
+          "equipoA": ["maxi", "elio"],
+          "puntuacionA": 6,
+          "equipoB": ["pico", "mister"],
+          "puntuacionB": 3
+        },
+        {
+          "equipoA": ["ivan", "chejo"],
+          "puntuacionA": 6,
+          "equipoB": ["pico", "mister"],
+          "puntuacionB": 3
         }
       ]
     }
-  ],
-  "Febrero": []
+  ]
 }
