@@ -26,4 +26,4 @@ jobs:
 
     - name: Ejecutar script de cálculo
       run: |
-        python calcular_rankings.py 
+        python calcular_rankings.py
