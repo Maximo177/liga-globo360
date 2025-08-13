@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liga de Padel GLOBO360</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to bottom right, #1a237e, #4a148c);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            margin: 0;
+            overflow: auto;
+            padding: 20px;
+        }
+        #root {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .background-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .menu-container {
+            background-color: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            width: 100%;
+            max-width: 480px;
+        }
+        .menu-button, .calculate-button {
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            margin-bottom: 0.75rem;
+            background-color: #4f46e5;
+            color: white;
+            font-size: 1.125rem;
+            font-weight: bold;
+            border-radius: 0.75rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .menu-button:hover {
+            background-color: #6366f1;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+        .calculate-button {
+            background-color: #22c55e;
+            margin-top: 1.5rem;
+        }
+        .calculate-button:hover {
+            background-color: #16a34a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+        .months-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .months-list .menu-button {
+            margin: 0;
+        }
+        .table-title, .results-title {
+            background-color: #1d4ed8;
+            color: #ffffff;
+            font-size: 1.25rem;
+            font-weight: bold;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 0.75rem 0.75rem 0 0;
+            margin-bottom: 0.5rem;
+        }
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+        .ranking-table th, .ranking-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .ranking-table thead th {
+            background-color: #1d4ed8;
+            color: #ffffff;
+            font-weight: bold;
+        }
+        .ranking-table tbody tr:nth-child(odd) {
+            background-color: rgba(30, 41, 59, 0.5);
+        }
+        .ranking-table tbody tr:hover {
+            background-color: rgba(30, 41, 59, 0.7);
+        }
+        .pos-cell { width: 10%; text-align: center; }
+        .player-cell { width: 50%; }
+        .stats-cell { width: 10%; text-align: center; }
+
+        .match-card {
+            background-color: rgba(30, 41, 59, 0.9);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+        .team-player, .team-score {
+            background-color: #334155;
+            color: #e2e8f0;
+            border-radius: 0.5rem;
+            border: none;
+            padding: 0.5rem;
+            text-align: center;
+        }
+        .team-player {
+            flex-grow: 1;
+            min-width: 0;
+        }
+        .team-score {
+            width: 3rem;
+        }
+        .vs-text {
+            font-weight: bold;
+            color: #94a3b8;
+        }
+
+        /* Responsive styles for smaller screens */
+        @media (max-width: 600px) {
+            .menu-container {
+                padding: 1.5rem;
+                border-radius: 1rem;
+            }
+            .menu-button, .calculate-button {
+                font-size: 1rem;
+            }
+            .months-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .ranking-table th, .ranking-table td {
+                padding: 0.5rem;
+            }
+            .match-card {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .team-player, .team-score {
+                flex-grow: 0;
+                width: 45%;
+                margin: 0.25rem;
+            }
+            .team-score {
+                width: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+    const { useState } = React;
+
+    const App = () => {
+        const [appState, setAppState] = useState('mainMenu');
+        const [currentMonth, setCurrentMonth] = useState('');
+        const [currentDate, setCurrentDate] = useState('');
+        const [monthlyRanking, setMonthlyRanking] = useState([]);
+        const [dailyRanking, setDailyRanking] = useState([]);
+        const [isLoading, setIsLoading] = useState(false);
+
+        const monthNames = [
+            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+        ];
+        const dateNames = Array.from({ length: 9 }, (_, i) => `Fecha ${i + 1}`);
+
+        // Función para obtener los rankings desde los archivos JSON
+        const fetchRanking = async (type, month, date) => {
+            setIsLoading(true);
+            let url;
+            if (type === 'monthly') {
+                url = 'rankings/ranking_mensual.json';
+            } else if (type === 'daily') {
+                // Ejemplo: 'rankings/Enero_Fecha 1_ranking.json'
+                url = `rankings/${month}_${date.replace(' ', '_')}_ranking.json`;
+            }
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Ranking data not found.');
+                }
+                const data = await response.json();
+                if (type === 'monthly') {
+                    setMonthlyRanking(data);
+                } else {
+                    setDailyRanking(data);
+                }
+            } catch (error) {
+                console.error(error);
+                setMonthlyRanking([]);
+                setDailyRanking([]);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        const handleNavigation = (newState, month = '', date = '') => {
+            setAppState(newState);
+            if (newState === 'secondaryMenu') {
+                setCurrentMonth(month);
+            } else if (newState === 'tertiaryMenu') {
+                setCurrentDate(date);
+            } else if (newState === 'rankingTable') {
+                fetchRanking('monthly');
+            } else if (newState === 'rankingDayTable') {
+                fetchRanking('daily', currentMonth, currentDate);
+            }
+        };
+        
+        const renderTable = (isDayTable) => {
+            const dataToDisplay = isDayTable ? dailyRanking : monthlyRanking;
+            const title = isDayTable ? `TABLA DEL DÍA (${currentDate})` : `TABLA DEL MES (${currentMonth})`;
+
+            if (isLoading) {
+                return (
+                    <div className="w-full max-w-sm mx-auto p-4 text-center">
+                        <svg className="animate-spin -ml-1 mr-3 h-10 w-10 text-white mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <p className="text-white mt-4">Cargando...</p>
+                    </div>
+                );
+            }
+
+            if (!dataToDisplay.length) {
+                return (
+                    <div className="w-full max-w-sm mx-auto p-4 text-center">
+                        <p className="text-white">No hay datos de jugadores.</p>
+                        <button className="menu-button mt-6 bg-red-600 hover:bg-red-700" onClick={() => handleNavigation(isDayTable ? 'tertiaryMenu' : 'secondaryMenu')}>Volver</button>
+                    </div>
+                );
+            }
+            
+            return (
+                <div className="w-full max-w-sm mx-auto">
+                    <div className="table-title rounded-t-lg">{title}</div>
+                    <div className="overflow-x-auto">
+                        <table className="ranking-table">
+                            <thead>
+                                <tr>
+                                    <th className="pos-cell">POS</th>
+                                    <th className="player-cell">JUGADOR</th>
+                                    <th className="stats-cell">PTS</th>
+                                    <th className="stats-cell">GG</th>
+                                    <th className="stats-cell">GP</th>
+                                    <th className="stats-cell">DIF</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {dataToDisplay.map((player, index) => (
+                                    <tr key={player.name}>
+                                        <td className="pos-cell">{index + 1}</td>
+                                        <td className="player-cell">{player.name}</td>
+                                        <td className="stats-cell">{player.pts}</td>
+                                        <td className="stats-cell">{player.gg}</td>
+                                        <td className="stats-cell">{player.gp}</td>
+                                        <td className="stats-cell">{player.gg - player.gp}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <button className="menu-button mt-6 bg-red-600 hover:bg-red-700" onClick={() => handleNavigation(isDayTable ? 'tertiaryMenu' : 'secondaryMenu')}>Volver</button>
+                </div>
+            );
+        };
+        
+        return (
+            <div className="background-container">
+                <div className="menu-container">
+                    <h1 className="text-3xl md:text-4xl font-bold text-white mb-8">
+                        LIGA DE PADEL<br/>GLOBO360
+                    </h1>
+
+                    {/* Menú Principal (Meses) */}
+                    {appState === 'mainMenu' && (
+                        <div id="mainMenu" className="months-list">
+                            {monthNames.map(month => (
+                                <button key={month} className="menu-button" onClick={() => handleNavigation('secondaryMenu', month)}>
+                                    {month}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Menú Secundario (Fechas y Tabla Mensual) */}
+                    {appState === 'secondaryMenu' && (
+                        <div id="secondaryMenu">
+                            <h2 id="monthTitle" className="text-3xl font-bold text-white mb-4">{currentMonth.toUpperCase()}</h2>
+                            <button className="menu-button" onClick={() => handleNavigation('rankingTable')}>Tabla del Mes</button>
+                            {dateNames.map(date => (
+                                <button key={date} className="menu-button" onClick={() => handleNavigation('tertiaryMenu', '', date)}>
+                                    {date}
+                                </button>
+                            ))}
+                            <button className="menu-button mt-6 bg-red-600 hover:bg-red-700" onClick={() => handleNavigation('mainMenu')}>Volver</button>
+                        </div>
+                    )}
+                    
+                    {/* Menú Terciario (Resultados y Tabla del Día) */}
+                    {appState === 'tertiaryMenu' && (
+                        <div id="tertiaryMenu">
+                            <h2 id="dateTitle" className="text-3xl font-bold text-white mb-4">{currentDate.toUpperCase()}</h2>
+                            <button className="menu-button" onClick={() => handleNavigation('rankingDayTable')}>Tabla del Día</button>
+                            <button className="menu-button mt-6 bg-red-600 hover:bg-red-700" onClick={() => handleNavigation('secondaryMenu')}>Volver</button>
+                        </div>
+                    )}
+
+                    {/* Tabla de Ranking (Mensual) */}
+                    {appState === 'rankingTable' && renderTable(false)}
+
+                    {/* Tabla de Ranking (Día) */}
+                    {appState === 'rankingDayTable' && renderTable(true)}
+                </div>
+            </div>
+        );
+    };
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
+</html>

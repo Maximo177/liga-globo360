@@ -1,0 +1,33 @@
+{
+  "Enero": [
+    {
+      "fecha": "Fecha 1",
+      "partidos": [
+        {
+          "equipoA": ["Jugador 1", "Jugador 2"],
+          "puntuacionA": 6,
+          "equipoB": ["Jugador 3", "Jugador 4"],
+          "puntuacionB": 4
+        },
+        {
+          "equipoA": ["Jugador 5", "Jugador 6"],
+          "puntuacionA": 2,
+          "equipoB": ["Jugador 7", "Jugador 8"],
+          "puntuacionB": 6
+        }
+      ]
+    },
+    {
+      "fecha": "Fecha 2",
+      "partidos": [
+        {
+          "equipoA": ["Jugador 1", "Jugador 3"],
+          "puntuacionA": 5,
+          "equipoB": ["Jugador 2", "Jugador 4"],
+          "puntuacionB": 7
+        }
+      ]
+    }
+  ],
+  "Febrero": []
+}

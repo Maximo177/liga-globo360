@@ -1,0 +1,35 @@
+name: Calcular Rankings de Padel
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'data/match-results.json'
+
+jobs:
+  calcular:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v2
+
+      - name: Configurar Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Crear directorio de rankings
+        run: |
+          mkdir -p rankings
+
+      - name: Ejecutar script de cálculo
+        run: python calcular_rankings.py
+
+      - name: Subir los cambios
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add rankings/
+          git commit -m "Auto-calcular rankings" || echo "No hay cambios para subir"
+          git push
