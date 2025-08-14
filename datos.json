@@ -1,0 +1,139 @@
+{
+    "jugadores": [
+        "Jugador 1",
+        "Jugador 2",
+        "Jugador 3",
+        "Jugador 4",
+        "Jugador 5",
+        "Jugador 6",
+        "Jugador 7",
+        "Jugador 8",
+        "Jugador 9",
+        "Jugador 10"
+    ],
+    "fechas": {
+        "Fecha 1": [
+            {
+                "equipoA": [
+                    "Jugador 1",
+                    "Jugador 2"
+                ],
+                "equipoB": [
+                    "Jugador 3",
+                    "Jugador 4"
+                ],
+                "scoreA": 6,
+                "scoreB": 4
+            },
+            {
+                "equipoA": [
+                    "Jugador 5",
+                    "Jugador 6"
+                ],
+                "equipoB": [
+                    "Jugador 7",
+                    "Jugador 8"
+                ],
+                "scoreA": 3,
+                "scoreB": 6
+            },
+            {
+                "equipoA": [
+                    "Jugador 9",
+                    "Jugador 10"
+                ],
+                "equipoB": [
+                    "Jugador 1",
+                    "Jugador 3"
+                ],
+                "scoreA": 5,
+                "scoreB": 7
+            },
+            {
+                "equipoA": [
+                    "Jugador 4",
+                    "Jugador 5"
+                ],
+                "equipoB": [
+                    "Jugador 6",
+                    "Jugador 8"
+                ],
+                "scoreA": 6,
+                "scoreB": 2
+            },
+            {
+                "equipoA": [
+                    "Jugador 2",
+                    "Jugador 9"
+                ],
+                "equipoB": [
+                    "Jugador 7",
+                    "Jugador 10"
+                ],
+                "scoreA": 4,
+                "scoreB": 6
+            },
+            {
+                "equipoA": [
+                    "Jugador 1",
+                    "Jugador 4"
+                ],
+                "equipoB": [
+                    "Jugador 5",
+                    "Jugador 7"
+                ],
+                "scoreA": 6,
+                "scoreB": 3
+            },
+            {
+                "equipoA": [
+                    "Jugador 2",
+                    "Jugador 6"
+                ],
+                "equipoB": [
+                    "Jugador 8",
+                    "Jugador 10"
+                ],
+                "scoreA": 7,
+                "scoreB": 5
+            },
+            {
+                "equipoA": [
+                    "Jugador 3",
+                    "Jugador 9"
+                ],
+                "equipoB": [
+                    "Jugador 1",
+                    "Jugador 8"
+                ],
+                "scoreA": 4,
+                "scoreB": 6
+            },
+            {
+                "equipoA": [
+                    "Jugador 4",
+                    "Jugador 10"
+                ],
+                "equipoB": [
+                    "Jugador 2",
+                    "Jugador 5"
+                ],
+                "scoreA": 6,
+                "scoreB": 2
+            },
+            {
+                "equipoA": [
+                    "Jugador 6",
+                    "Jugador 9"
+                ],
+                "equipoB": [
+                    "Jugador 3",
+                    "Jugador 7"
+                ],
+                "scoreA": 5,
+                "scoreB": 7
+            }
+        ],
+        "Fecha 2": []
+    }
+}
